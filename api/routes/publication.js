@@ -13,7 +13,7 @@ api.get('/homePublication', PublicationController.home);
 api.get('/homePublicationAuth', mdAuth.ensureAuth, PublicationController.home);
 
 api.post('/savePublication', mdAuth.ensureAuth, PublicationController.savePublication);
-api.post('/update-file-pub', [mdAuth.ensureAuth, md_upload], PublicationController.uploadImage);
+api.post('/update-file-pub/:id', [mdAuth.ensureAuth, md_upload], PublicationController.uploadImage);
 api.get('/publications/:page?', mdAuth.ensureAuth, PublicationController.getPublications);
 api.get('/getPublication/:id', mdAuth.ensureAuth, PublicationController.getPublication);
 api.get('/get-image-pub/:id', mdAuth.ensureAuth, PublicationController.getImageFile);

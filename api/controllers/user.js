@@ -6,8 +6,10 @@ var path = require('path');
 var mongoosePaginate = require('mongoose-pagination');
 
 // Modelos
+var Publication = require('../models/publication');
 var User = require('../models/user');
 var Follow = require('../models/follow');
+
 
 //servicios
 var jwt = require('../services/jwt');
@@ -115,10 +117,11 @@ function getCounters(req, res) {
     res.status(200).send({
       message: 'success',
       following: value.following,
-      followed: value.followed
+      followed: value.followed,
+      publications: value.publications
     });
   }).catch((err) => {
-    return res.status(500).send({message: 'Error al contadores'});
+    return res.status(500).send({message: 'Error al contadores error:'+err});
   });
 
 
@@ -127,11 +130,14 @@ function getCounters(req, res) {
 async function getCountFollow(user_id){
    var following = await Follow.count({"user":user_id}).exec().catch((err) => {
      console.log('following getCount = '+err);
-   })
+   });
    var followed = await Follow.count({"followed":user_id}).exec().catch((err) => {
      console.log('followed getCount = '+err);
-   })
-   return { following : following, followed: followed };
+   });
+   var publications = await Publication.count({"user":user_id}).exec().catch((err) => {
+     console.log('publications getCount = '+err);
+   });
+   return { following : following, followed: followed, publications:publications };
 }
 
 function getUsers(req, res) {

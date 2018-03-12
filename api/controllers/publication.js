@@ -4,10 +4,11 @@ var bcrypt = require('bcrypt-nodejs')
 var fs = require('fs');
 var path = require('path');
 var mongoosePaginate = require('mongoose-pagination');
+var ObjectId = require('mongoose').Types.ObjectId;
 var moment = require('moment');
 
 // Modelos
-var Publication = require('../models/Publication');
+var Publication = require('../models/publication');
 var User = require('../models/user');
 var Follow = require('../models/follow');
 
@@ -107,17 +108,26 @@ function uploadImage(req, res){
   if (file_ext != 'png' && file_ext != 'jpg' && file_ext != 'jpeg' && file_ext != 'git') {
     return removeFiles(res, file_path, '200', 'Extencion invalida');
   }
-  console.log(req.user);
-  PublicationController.findByIdAndUpdate(userId, { image: file_name}, {new :true}, (err, publicationUpdated) => {
-    if (err) return removeFiles(res, file_path, '500', 'Error al buscar file');
-    if (!userUpdated) return removeFiles(res, file_path, 404, 'Error usuario no encontrado');
-    userUpdated.password = undefined;
-    res.status(200).send({file_path, file_split, file_name, user: userUpdated});
+
+  console.log({'reqUser':req.user});
+    Publication.findOne({'_id':new ObjectId(publicationId), 'user': new ObjectId(req.user.sub)}).exec().then((publication) => {
+    console.log({'este':publication});
+    if (!publication) return removeFiles(res, file_path, '400', 'Publicacion no encontrada');
+    publication.file = file_name;
+    publication.save().then((saverPublication) => {
+        res.status(200).send({file_path, file_split, file_name, publication: saverPublication});
+    }).catch((err) => {
+      return removeFiles(res, file_path, '500', 'Error en save');
+    });
+
+  }).catch((err) => {
+    return removeFiles(res, file_path, '500', 'Error en find');
   });
 }
 
 
 function removeFiles(res, file_path, code, message){
+  console.log('borrando archivo : '+file_path+' message :'+message);
   fs.unlink(file_path, (err) => {
     if (err) return res.status(500).send({message: 'archivos no borrado y'+message});
     return res.status(code).send({message});
