@@ -1,0 +1,54 @@
+
+
+/* Generales */
+.h1-strong {
+  font-size: 35;
+  font-weight: bold;
+  margin-left: 13px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #333;
+}
+
+.active {
+   background-color: #cc1717;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.navigation .navbar .dropdown-menu * {
+  color: black !important;
+}
+.navigation .navbar .dropdown-menu a:hover {
+ background: #eee !important;
+}
+
+.jumbotron {
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover{
+  background-color: #cc1717 !important;
+}
+
+/* Header */
+.navigation {
+  padding: 0px !important;
+}
+
+.navigation .navbar {
+  border-radius: 0px !important;
+  border: none;
+  background: #e53c37 !important;
+}
+.navigation .navbar * {
+  color: white  !important;
+}
+
+.navigation .navbar a:hover {
+   background-color: #cc1717 !important;
+}
