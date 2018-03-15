@@ -4,6 +4,7 @@ var bcrypt = require('bcrypt-nodejs')
 var fs = require('fs');
 var path = require('path');
 var mongoosePaginate = require('mongoose-pagination');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 // Modelos
 var Publication = require('../models/publication');
@@ -143,10 +144,10 @@ async function getCountFollow(user_id){
 function getUsers(req, res) {
   var identity_user_id = req.user.sub;
   var page = 1;
-  var itemsPerPage = 5;
+  var itemsPerPage = 2;
 
   if (req.params.page) page = req.params.page;
-
+  console.log({reqparamspage:req.params.page});
   User.find().sort('_id').paginate(page, itemsPerPage, (err, users, total) => {
     if (err) return res.status(500).send({message: 'Error al buscar users'});
     if (!users) return res.status(404).send({message: 'Error usuarios no encontrados'});
@@ -194,15 +195,37 @@ function updateUser(req, res){
   var userId = req.params.id;
   var update = req.body;
   delete update.password;
-  if (userId != req.user.sub) return res.status(403).send({message: 'No tienes permisoss'});
   console.log(update);
-  User.findByIdAndUpdate(userId, update, {new :true}, (err, userUpdated) => {
-    console.log(err);
-    if (err) return res.status(500).send({message: 'Error al buscar user'});
-    if (!userUpdated) return res.status(404).send({message: 'Error usuario no encontrado'});
-    userUpdated.password = undefined;
-    res.status(200).send({message: 'success', userUpdated});
+  if (userId != req.user.sub) return res.status(403).send({message: 'No tienes permisos'});
+  if (!update.email || !update.nick || !update.name || !update.surname) return res.status(403).send({message: 'Faltan Campos'});
+
+  User.find({
+      $or: [
+        {email: update.email.toLowerCase()},
+        {nick: update.nick.toLowerCase()}
+    ]
+  }).exec((err, findUsers) => {
+    console.log({'UsersFind':findUsers});
+    if (err) return res.status(500).send({message: 'Error al guardar'});
+    var finded = false;
+
+    findUsers.forEach((findUser) => {
+      if (findUser && findUser._id != userId) finded = true;
+    });
+
+    if (finded) {
+      return res.status(200).send({message: 'Mail o Nick ya en uso por otro usuario'});
+    } else {
+      User.findByIdAndUpdate(userId, update, {new :true}, (err, userUpdated) => {
+        console.log(err);
+        if (err) return res.status(500).send({message: 'Error al buscar user'});
+        if (!userUpdated) return res.status(404).send({message: 'Error usuario no encontrado'});
+        userUpdated.password = undefined;
+        res.status(200).send({message: 'success', userUpdated});
+      });
+    }
   });
+
 }
 
 

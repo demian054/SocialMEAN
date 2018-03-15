@@ -33,6 +33,15 @@ export class UserService {
     return this._http.post(this.url+'login', params, {headers: headers});
   }
 
+  updateUser(user:User): Observable<any> {
+    let params = JSON.stringify(user);
+    let headers = new HttpHeaders()
+      .set('content-Type', 'application/json')
+      .set('Authorization', this.getToken());
+    return this._http.put(this.url+'update-user/'+user._id, params, {headers: headers});
+
+  }
+
   getCounters(userId = null): Observable<any> {
     let headers = new HttpHeaders()
       .set('content-Type', 'application/json')
@@ -42,6 +51,20 @@ export class UserService {
     } else {
       return this._http.get(this.url+'counters', {headers: headers});
     }
+  }
+
+  getUsers(page = null): Observable<any> {
+    let headers = new HttpHeaders()
+      .set('content-Type', 'application/json')
+      .set('Authorization', this.getToken());
+    return this._http.get(this.url+'users/'+page, {headers: headers});
+  }
+
+  getUser(userId): Observable<any> {
+    let headers = new HttpHeaders()
+      .set('content-Type', 'application/json')
+      .set('Authorization', this.getToken());
+    return this._http.get(this.url+'user/'+userId, {headers: headers});
   }
 
   getIdentity(){

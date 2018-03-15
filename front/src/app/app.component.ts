@@ -2,7 +2,8 @@ import { Component, OnInit, DoCheck } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 // Services
-import { UserService } from './services/user.service';
+import { UserService }  from './services/user.service';
+import { GLOBAL }       from './services/global';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ export class AppComponent implements OnInit, DoCheck {
   public title:string;
   public identity;
   public token:string;
+  public url: string;
 
   constructor (
     private _route: ActivatedRoute,
@@ -22,6 +24,7 @@ export class AppComponent implements OnInit, DoCheck {
 
   ){
     this.title = 'NGSOCIAL';
+    this.url = GLOBAL.url;
   };
 
   ngOnInit(){

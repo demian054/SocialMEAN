@@ -31,6 +31,55 @@
     text-align: center;
 }
 
+.item-user .image-user img {
+  width: 120px;
+}
+
+.item-user .image-user{
+  width: 75px;
+  height: 75px;
+  border-radius: 100px;
+  overflow: hidden;
+  margin-right: 15px;
+}
+
+.item-user .name-user{
+  margin-top: 11px;
+
+}
+.item-user .name-user .name-surname-user{
+  color: #666;
+  font-weight: bold;
+}
+.item-user .name-user .nickname{
+  color:#777;
+}
+
+.navigation .avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 100px;
+  overflow: hidden;
+  margin-top: 9px;
+  margin-right: 2px;
+}
+
+.navigation .avatar img{
+  width: auto;
+  height: 35px;
+}
+
+.avatar-image{
+  height: 100%;
+  /*--overflow: hidden;
+  --margin-top: 9px;*/
+  margin-right: 2px;
+}
+
+.avatar-image-default{
+  width: 100% !important;
+}
+
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover{
   background-color: #cc1717 !important;
 }
