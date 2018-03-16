@@ -1,0 +1,44 @@
+<div class="col-lg-8">
+  <h1 class="h1-strong">{{title}}</h1>
+  <!-- Mensajes -->
+  <div class="alert alert-success" *ngIf="status == 'success'">
+    Editado Completado Correctamente, <a [routerLink]="['/login']"></a>
+  </div>
+  <div class="alert alert-danger" *ngIf="status == 'error'">
+    {{message}}, Intalo de nuevo
+  </div>
+  <!-- Formulario -->
+  <form #userEditForm="ngForm" (ngSubmit)="onSubmit()" class="col-lg-12">
+    <p>
+      <label>Nombre</label>
+      <input type="text" name="name" #name="ngModel" [(ngModel)]="user.name" class="form-control" required >
+      <span *ngIf="!name.valid && name.touched">Campo Invalido</span>
+    </p>
+    <p>
+      <label>Apellido</label>
+      <input type="text" name="surname" #surname="ngModel" [(ngModel)]="user.surname" class="form-control" required >
+      <span *ngIf="!surname.valid && surname.touched">Campo Invalido</span>
+    </p>
+    <p>
+      <label>nick</label>
+      <input type="text" name="nick" #nick="ngModel" [(ngModel)]="user.nick" class="form-control" required >
+      <span *ngIf="!nick.valid && nick.touched">Campo Invalido</span>
+    </p>
+    <p>
+      <label>email</label>
+      <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control" required
+      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" >
+      <span *ngIf="!email.valid && email.touched">Campo Invalido</span>
+    </p>
+    <div class="" *ngIf="user.image">
+      <img class="avatar-image" src="{{ url + 'get-image-file/' + user.image }}">
+    </div>
+    <p>
+      <label>Sube tu avatar</label>
+      <input type="file" placeholder="subir imagen" (change)="fileChangeEvent($event)">
+    </p>
+
+    <input type="submit" value="{{title}}" class="btn btn-success" [disabled]="!userEditForm.valid">
+
+  </form>
+</div>

@@ -13,11 +13,14 @@ var jwt = require('../services/jwt');
 
 function saveFollow(req, res) {
   var params = req.body;
+
+  console.log({parametros :params});
+  if (!params.followed)  return res.status(500).send({message: 'Parametros incompletos'});
+
   var follow = new Follow();
   follow.user = req.user.sub;
   follow.followed = params.followed;
-  console.log(params);
-  if (!params.followed)  return res.status(500).send({message: 'Parametros incompletos'});
+
   follow.save((err, followStored) => {
     console.log(err);
      if (err || !followStored) return res.status(500).send({message: 'Error al guardar followStored'});

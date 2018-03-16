@@ -12,7 +12,7 @@ var md_upload = multipart({ uploadDir: './uploads/publications'});
 api.get('/homePublication', PublicationController.home);
 api.get('/homePublicationAuth', mdAuth.ensureAuth, PublicationController.home);
 
-api.post('/savePublication', mdAuth.ensureAuth, PublicationController.savePublication);
+api.post('/publication', mdAuth.ensureAuth, PublicationController.savePublication);
 api.post('/update-file-pub/:id', [mdAuth.ensureAuth, md_upload], PublicationController.uploadImage);
 api.get('/publications/:page?', mdAuth.ensureAuth, PublicationController.getPublications);
 api.get('/getPublication/:id', mdAuth.ensureAuth, PublicationController.getPublication);

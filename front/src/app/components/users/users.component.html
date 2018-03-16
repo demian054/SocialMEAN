@@ -1,0 +1,62 @@
+<div class="col-lg-8">
+  <h1 class="h1-strong">{{title}}</h1>
+  <div class="peaple">
+    <div class="item-user" *ngFor="let user of users">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="image-user pull-left">
+            <a href="#">
+              <img class="avatar-image" src="{{ url + 'get-image-file/' + user.image }}" *ngIf="user.image">
+              <img class="avatar-image-default" src="assets/user.png" *ngIf="!user.image" >
+            </a>
+          </div>
+          <div class="name-user pull-left">
+            <p>
+              <a class="name-surname-user" href="#">
+                {{user.name + ' ' + user.surname}}
+              </a>
+
+            </p>
+            <p class="nickname">{{user.nick}}  ({{user.email}})</p>
+
+          </div>
+          <!-- seguir y dejar de seguir-->
+          <div class="pull-right" *ngIf="user._id != identity._id">
+            <button class="btn btn-success" *ngIf="follows.indexOf(user._id) < 0"
+            (click)="followUser(user._id)">
+              <span class="glyphicon glyphicon-plus-sign"></span>
+              Segir</button>
+
+            <button class="btn btn-primary" *ngIf="follows.indexOf(user._id) >= 0"
+              (mouseenter)="followUserOver = user._id"
+              (mouseleave)="followUserOver = null"
+              [class.btn-danger]="user._id == followUserOver">
+
+              <span *ngIf="user._id == followUserOver; else following"
+              (click)="unfollowUser(user._id)">
+                <span class="glyphicon glyphicon-minus-sign">Dejar de segir</span>
+              </span>
+
+              <ng-template #following>
+                <span class="glyphicon glyphicon-ok-sign">Siguiendo</span>
+              </ng-template>
+
+
+
+
+              </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- paginacion -->
+    <ul class="pagination pull-right">
+      <li *ngIf="page >1"><a [routerLink]="['/gente/', prev_page]" >Anterior</a>
+      <li *ngIf="pages != page"><a [routerLink]="['/gente/', next_page]" >Siguiente</a>
+      </li>
+    </ul>
+  </div>
+
+</div>
+<app-sidebar></app-sidebar>
+<div class="clearfix"></div>

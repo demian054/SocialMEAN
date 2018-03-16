@@ -52,11 +52,17 @@ function getPublications(req, res) {
     });
 
     Publication.find({user: follows_clean}).sort('-cleated_at')
-    .populate('user').paginate(page, itemsPerPage).exec()
-    .then((publication) => {
-        res.status(200).send({message: 'publication User', follows_clean, publication});
-    }).catch((err) => {
-      return res.status(500).send({message: 'error getPublications = '+err});
+    .populate('user').paginate(page, itemsPerPage, (err, publications, total_items) => {
+      if (err) return res.status(500).send({message: 'error getPublications = '+err});
+      res.status(200).send({
+          message: 'publication User',
+          follows_clean,
+          publications,
+          page,
+          pages: Math.ceil(total_items/itemsPerPage),
+          total_items,
+          itemsPerPage
+        });
     });
 
 

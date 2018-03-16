@@ -1,0 +1,77 @@
+<div class="col-lg-4 sidebar-32">
+  <h1 class="h1-strong">Mis Datos</h1>
+</div>
+
+<div id="user-card" class="col-lg-4 panel panel-default pull-left">
+  <div class="avatar  pull-left">
+    <img class="avatar-image" src="{{ url + 'get-image-file/' + identity.image }}" *ngIf="identity.image">
+    <img class="avatar-image-default" src="assets/user.png" *ngIf="!identity.image" >
+  </div>
+  <div class="name-surname-user pull-left">
+    <a href="#" class="name-surname-user">
+      {{identity.name + ' '+ identity.surname}}
+    </a>
+    <p class="nickname">{{identity.nick}}</p>
+    <div class="clearfix"></div>
+  </div>
+  <div class="clearfix"></div>
+
+  <div class="stats" *ngIf="stats">
+    <div class="following-data">
+      <a href="#">
+        <span class="label-stats">
+          Siguiendo
+        </span>
+        <span class="number-stats">
+          {{stats.following}}
+        </span>
+      </a>
+    </div>
+    <div class="following-data">
+      <a href="#">
+        <span class="label-stats">
+          Seguidores
+        </span>
+        <span class="number-stats">
+          {{stats.followed}}
+        </span>
+      </a>
+    </div>
+    <div class="following-data">
+      <a href="#">
+        <span class="label-stats">
+          Publicaciones
+        </span>
+        <span class="number-stats">
+          {{stats.publications}}
+        </span>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<div id="new-publication" class="col-lg-4 panel panel-default pull-left">
+  <!-- Mensajes -->
+  <div class="alert alert-success" *ngIf="status == 'success'">
+    Publicado Correctamente <a [routerLink]="['/login']"></a>
+  </div>
+  <div class="alert alert-danger" *ngIf="status == 'error'">
+    {{message}}, Intalo de nuevo
+  </div>
+  <!-- Formulario -->
+  <form #newPubForm="ngForm" (ngSubmit)="onSubmit(newPubForm)" class="col-lg-10">
+    <p>
+      <label>que piensas hoy</label>
+      <textarea name="text" #text="ngModel" [(ngModel)]="publication.text" class="form-control" required></textarea>
+      <span *ngIf="!text.valid && text.touched">
+        Texto Obligatorio
+      </span>
+    </p>
+    <p>
+      <label>Sube tu foto</label>
+      <input type="file" placeholder="Subir Imagen">
+    </p>
+    <input type="submit" value="Enviar" class="btn btn-success" [disabled]="!newPubForm.form.valid">
+  </form>
+</div>

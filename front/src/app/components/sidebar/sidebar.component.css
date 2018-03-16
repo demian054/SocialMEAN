@@ -1,0 +1,76 @@
+
+/* Sidebar */
+.sidebar-32 {
+  width: 32%;
+  padding: 0px !important;
+}
+
+#user-card{
+  padding: 25px;
+  width: 32%;
+}
+
+#user-card .avatar {
+  width: 75px;
+  height: 75px;
+  border-radius: 100px;
+  overflow: hidden;
+  margin-right: 15px;
+}
+#user-card .avatar img{
+  width: 100%;
+}
+
+#user-card .name-surname-user {
+  font-weight: 300;
+  font-size: 17px;
+}
+
+#user-card .name-surname-user a {
+  color: #555;
+}
+#user-card .name-surname-user .nickname {
+  color: #969393;
+}
+
+#user-card .label-stats,
+#user-card .number-stats{
+  display: block;
+  text-align: center;
+  font-weight: bold;
+}
+
+#user-card .label-stats {
+  color: #555;
+}
+
+#user-card .number-stats {
+  color: #cc1717;
+}
+
+#user-card .stats a:hover {
+  text-decoration: none;
+
+}
+
+#user-card .following-data {
+  float: left;
+  padding-left: 17px;
+  padding-right: 17px;
+  margin-top: 20px;
+  border-right: 1px solid #555;
+}
+
+#user-card .following-data:last-child {
+    border: none;
+}
+#user-card .following-data:first-child {
+    padding-left: 6px;
+}
+
+
+#new-publication{
+ padding: 18px;
+ padding-left: 10px;
+ width: 32%;
+}

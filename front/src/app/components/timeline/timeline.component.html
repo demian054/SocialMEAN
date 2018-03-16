@@ -1,0 +1,31 @@
+<div class="col-lg-8">
+  <h1 class="h1-strong">{{title}}</h1>
+  <div id="publication">
+    <div *ngFor="let pub of publications" class="item-publication">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="image-user pull-left">
+            <a href="#">
+              <img class="avatar-image" src="{{ url + 'get-image-file/' + pub.user.image }}" *ngIf="pub.user.image">
+              <img class="avatar-image-default" src="assets/user.png" *ngIf="!pub.user.image" >
+            </a>
+          </div>
+          <div class="user-name">{{pub.user.name + ' ' + pub.user.surname}} | {{timeConverter(pub.created_at)}}</div>
+          <h4 class="publication-text pull-left">
+            {{pub.text}}
+          </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="col-lg-12 text-center">
+  <p>
+    <button class="btn btn-success" (click)="getPublications(nextPage, true)" *ngIf="more">
+      ver mas
+    </button>
+  </p>
+</div>
+
+</div>
+<app-sidebar></app-sidebar>
+<div class="clearfix"></div>

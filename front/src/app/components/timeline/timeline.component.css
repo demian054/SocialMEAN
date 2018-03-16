@@ -1,0 +1,16 @@
+#publication {
+  min-height: 500px;
+
+}
+
+#publication .item-publication .image-user{
+  width: 75px;
+  height: 75px;
+  border-radius: 100px;
+  overflow: hidden;
+  margin-right: 15px;
+}
+
+#publication .item-publication .name-user{
+  margin-top: 11px;
+}
