@@ -50,9 +50,10 @@ function getPublications(req, res) {
     follows.forEach((follow) => {
       follows_clean.push(follow.followed);
     });
+    follows_clean.push(req.user.sub);
 
-    Publication.find({user: follows_clean}).sort('-cleated_at')
-    .populate('user').paginate(page, itemsPerPage, (err, publications, total_items) => {
+    Publication.find({user: follows_clean})
+    .populate('user').sort('-created_at').paginate(page, itemsPerPage, (err, publications, total_items) => {
       if (err) return res.status(500).send({message: 'error getPublications = '+err});
       res.status(200).send({
           message: 'publication User',
@@ -68,6 +69,30 @@ function getPublications(req, res) {
 
   }).catch((err) => {
     return res.status(500).send({message: 'error getPublications = '+err});
+  });
+
+
+};
+
+function getPublicationsUser(req, res) {
+  var page = 1;
+  var user = req.user.sub;
+  if (req.params.page) page = req.params.page;
+  if (req.params.user) user = req.params.user;
+
+  var itemsPerPage = 5;
+
+  Publication.find({user: userId})
+  .populate('user').sort('-created_at').paginate(page, itemsPerPage, (err, publications, total_items) => {
+    if (err) return res.status(500).send({message: 'error getPublications = '+err});
+    res.status(200).send({
+        message: 'publication User',
+        publications,
+        page,
+        pages: Math.ceil(total_items/itemsPerPage),
+        total_items,
+        itemsPerPage
+      });
   });
 
 
@@ -166,5 +191,6 @@ module.exports = {
   getPublication,
   deletePublication,
   uploadImage,
-  getImageFile
+  getImageFile,
+  getPublicationsUser
 }

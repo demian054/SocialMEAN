@@ -251,7 +251,7 @@ function uploadImage(req, res){
   var ext_split = file_name.split('.');
   var file_ext = ext_split[1];
 
-  if (file_ext != 'png' && file_ext != 'jpg' && file_ext != 'jpeg' && file_ext != 'git') {
+  if (file_ext != 'png' && file_ext != 'jpg' && file_ext != 'jpeg' && file_ext != 'git'&& file_ext != 'jfif') {
     return removeFiles(res, file_path, '200', 'Extencion invalida');
   }
   console.log(req.user);

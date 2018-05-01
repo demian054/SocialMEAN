@@ -1,3 +1,4 @@
+
 #publication {
   min-height: 500px;
 
@@ -13,4 +14,8 @@
 
 #publication .item-publication .name-user{
   margin-top: 11px;
+}
+
+#publication .date {
+  color: gray;
 }

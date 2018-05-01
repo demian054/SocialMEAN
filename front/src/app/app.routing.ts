@@ -8,6 +8,7 @@ import { HomeComponent } from './components/home/home.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { UsersComponent } from './components/users/users.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 
@@ -20,10 +21,11 @@ const appRoutes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'gente/:page', component: UsersComponent},
   {path: 'gente', component: UsersComponent},
-  {path: 'timeline', component: TimelineComponent}
-  {path: 'timeline/:page', component: TimelineComponent}
-
-  /*{path: '**', redirectTo: 'tienda', pathMatch: 'full'}*/
+  {path: 'timeline', component: TimelineComponent},
+  {path: 'timeline/:page', component: TimelineComponent},
+  {path: 'perfil/:id', component: ProfileComponent},
+  {path: '**', component: HomeComponent}
+  //{path: '**', redirectTo: 'tienda', pathMatch: 'full'}*/
 ];
 
 export const appRoutingProviders: any[] = [];

@@ -41,4 +41,12 @@ export class PublicationService {
     return this._http.get(this.url+'publications/'+page, {headers: headers});
   }
 
+  getPublicationUser(user, token, page = 1): Observable<any> {
+    //let params = JSON.stringify(publication);
+    let headers = new HttpHeaders()
+      .set('content-Type', 'application/json')
+      .set('Authorization', token);
+    return this._http.get(this.url+'publication-user/'+user+'/'+page, {headers: headers});
+  }
+
 }
